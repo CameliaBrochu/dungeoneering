@@ -15,4 +15,7 @@ add_subdirectory(glfw)
 target_link_libraries(dungeoneering opengl32)
 target_link_libraries(dungeoneering glfw)
 
+add_subdirectory(glad)
+target_link_libraries(dungeoneering glad)
+
 
