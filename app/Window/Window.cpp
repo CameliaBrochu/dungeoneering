@@ -1,5 +1,7 @@
 #include "Window.h"
 #include <cmath>
+#include "../Shader/Shader.h"
+#include "../Shader/Program.h"
 
 const char* vertexShaderSource = "#version 330 core\n"
                                  "layout (location = 0) in vec3 aPos;\n"
@@ -41,23 +43,13 @@ void Dungeoneering::Window::Update() {
                     0.0f, 0.5f * float(sqrt(3)) * 2 / 3, 0.0f // Upper corner
             };
 
-    GLuint vertex_buffer, vertex_shader, fragment_shader, program;
 
-    vertex_shader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertex_shader, 1, &vertexShaderSource, NULL);
-    glCompileShader(vertex_shader);
+    Shader vertexShader(vertexShaderSource,shaderType::VERT);
+    Shader fragmentShader(fragmentShaderSource,shaderType::FRAG);
 
-    fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragment_shader, 1, &fragmentShaderSource, NULL);
-    glCompileShader(fragment_shader);
+    std::vector<Shader> shaders{vertexShader, fragmentShader};
 
-    program = glCreateProgram();
-    glAttachShader(program, vertex_shader);
-    glAttachShader(program, fragment_shader);
-    glLinkProgram(program);
-
-    glDeleteShader(vertex_shader);
-    glDeleteShader(fragment_shader);
+    Program program(shaders);
 
     GLuint  VAO, VBO;
     glGenVertexArrays(1, &VAO);
@@ -80,7 +72,7 @@ void Dungeoneering::Window::Update() {
         glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glUseProgram(program);
+        glUseProgram(program.getProgram());
         glBindVertexArray(VAO);
 
         glDrawArrays(GL_TRIANGLES, 0, 3);
@@ -91,5 +83,4 @@ void Dungeoneering::Window::Update() {
 
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
-    glDeleteProgram(program);
 }
