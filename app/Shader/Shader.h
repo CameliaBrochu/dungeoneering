@@ -3,6 +3,8 @@
 
 #include <glad/glad.h>
 
+#include "../Utils/Debug.cpp"
+
 namespace Dungeoneering {
     enum shaderType {
         VERT=GL_VERTEX_SHADER,

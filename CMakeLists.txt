@@ -9,7 +9,8 @@ set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 add_executable(dungeoneering
-        app/main.cpp app/App.cpp app/App.h app/Window/Window.cpp app/Window/Window.h app/Shader/Shader.h app/Shader/Program.h)
+        app/main.cpp app/App.cpp app/App.h app/Window/Window.cpp app/Window/Window.h app/Shader/Shader.h app/Shader/Program.h
+        app/Utils/Debug.cpp)
 
 add_subdirectory(glfw)
 target_link_libraries(dungeoneering opengl32)

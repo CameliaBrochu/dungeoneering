@@ -8,18 +8,21 @@
 namespace Dungeoneering {
     class Program{
     public:
-        Program(const std::vector<Shader> &shaders) {
+        Program() {
             this->program = glCreateProgram();
-
-            for (const auto& s: shaders) {
-                glAttachShader(this->program,s.getShader());
-            }
-
-            glLinkProgram(this->program);
         }
 
         virtual ~Program() {
             glDeleteProgram(this->program);
+        }
+
+        void attachShaders(std::vector<Shader*> &shaders) const{
+
+            for (const auto& s: shaders) {
+                glAttachShader(this->program,s->getShader());
+            }
+
+            glLinkProgram(this->program);
         }
 
         GLuint getProgram() const {

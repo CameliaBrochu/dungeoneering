@@ -1,5 +1,6 @@
 #include "Window.h"
 #include <cmath>
+
 #include "../Shader/Shader.h"
 #include "../Shader/Program.h"
 
@@ -21,16 +22,16 @@ const char* fragmentShaderSource = "#version 330 core\n"
 Dungeoneering::Window::Window() {
     glfwInit();
     this->window = glfwCreateWindow(640, 480, "Hello world",NULL,NULL);
+    glfwMakeContextCurrent(this->window);
 }
 
 Dungeoneering::Window::~Window() {
+    glfwDestroyWindow(this->window);
     glfwTerminate();
 }
 
 void Dungeoneering::Window::Update() {
-    glfwMakeContextCurrent(window);
     gladLoadGL();
-
     int width, height;
     glfwGetFramebufferSize(window,&width, &height);
 
@@ -47,9 +48,10 @@ void Dungeoneering::Window::Update() {
     Shader vertexShader(vertexShaderSource,shaderType::VERT);
     Shader fragmentShader(fragmentShaderSource,shaderType::FRAG);
 
-    std::vector<Shader> shaders{vertexShader, fragmentShader};
+    std::vector<Shader*> shaders = {&vertexShader, &fragmentShader};
 
-    Program program(shaders);
+    Program program;
+    program.attachShaders(shaders);
 
     GLuint  VAO, VBO;
     glGenVertexArrays(1, &VAO);
@@ -64,7 +66,6 @@ void Dungeoneering::Window::Update() {
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
-
 
 
     // Loop until window closed
