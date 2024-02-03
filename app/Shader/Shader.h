@@ -2,6 +2,8 @@
 #define DUNGEONEERING_SHADER_H
 
 #include <glad/glad.h>
+#include <fstream>
+#include <format>
 
 #include "../Utils/Debug.cpp"
 
@@ -13,9 +15,12 @@ namespace Dungeoneering {
 
     class Shader{
     public:
-        Shader(const char* shaderSource, shaderType type){
+        Shader(const std::string& shaderSourcePath, shaderType type){
             this->shader = glCreateShader(type);
-            glShaderSource(this->shader, 1, &shaderSource, NULL);
+            std::string shaderFile = Shader::loadShaderFromFile(shaderSourcePath);
+            const char* shaderSource = shaderFile.c_str();
+
+            glShaderSource(this->shader, 1, &shaderSource, nullptr);
             glCompileShader(this->shader);
         }
 
@@ -29,6 +34,25 @@ namespace Dungeoneering {
 
     private:
         GLuint shader{};
+
+        static std::string loadShaderFromFile(const std::string& path){
+            std::string content;
+
+            std::ifstream fs("../app/Ressources/Shaders/" + path, std::ifstream::in);
+
+            if(!fs.is_open()){
+                throw std::runtime_error(std::format("Cannot read shader file \"{}\" ", path));
+            }
+
+            std::string line;
+            while(!fs.eof()){
+                std::getline(fs, line);
+                content.append(line + "\n");
+            }
+            fs.close();
+
+            return content;
+        }
     };
 }
 
