@@ -5,6 +5,9 @@
 #define DUNGEONEERING_VERTEXBUFFER_H
 
 #include <glad/glad.h>
+#include <vector>
+#include "../Utils/Structs.cpp"
+
 
 namespace Dungeoneering{
     class VertexBuffer{
@@ -15,6 +18,24 @@ namespace Dungeoneering{
             glGenBuffers(1, &VBO);
             glBindBuffer(GL_ARRAY_BUFFER, VBO);
             glBufferData(GL_ARRAY_BUFFER, size, verts, GL_STATIC_DRAW);
+        }
+
+        VertexBuffer(const std::vector<Vec3<GLfloat>>& vertsVector){
+
+            GLfloat verts[vertsVector.size() * 3];
+
+            int count = 0;
+            for (const Vec3<GLfloat>& vert: vertsVector) {
+                verts[count] = vert.x;
+                verts[count+1] = vert.y;
+                verts[count+2] = vert.z;
+
+                count = count+3;
+            }
+
+            glGenBuffers(1, &VBO);
+            glBindBuffer(GL_ARRAY_BUFFER, VBO);
+            glBufferData(GL_ARRAY_BUFFER, sizeof(verts), verts, GL_STATIC_DRAW);
         }
 
         virtual ~VertexBuffer() {
