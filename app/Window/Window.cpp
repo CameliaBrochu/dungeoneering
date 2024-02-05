@@ -33,17 +33,14 @@ void Dungeoneering::Window::Update() {
     Program program;
     program.attachShaders(shaders);
 
-    Grid grid;
+    Grid grid(width, height);
+    glUseProgram(program.getProgram());
 
     // Loop until window closed
     while(!glfwWindowShouldClose(window)){
         this->setBackgroundColor(Color(1.0f, 0.88f, 0.73f));
 
-        glUseProgram(program.getProgram());
-
         grid.render();
-
-        glDrawArrays(GL_TRIANGLES, 0, 3);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

@@ -13,29 +13,21 @@ void Dungeoneering::Grid::render() {
 
     std::vector<Vec3<GLfloat>> vertices;
 
-    for (int j = 0; j <= slices; ++j) {
-        for (int i = 0; i <= slices; ++i) {
-            GLfloat x = (float)i / (float)slices;
-            GLfloat y = (float)j / (float)slices;
-            GLfloat z = 0;
-            vertices.push_back(Vec3<GLfloat>(x * 2.0f - 1.0f, y * 2.0f - 1.0f, z));
-        }
+    for (int i = 0; i < slices; ++i) {
+        GLfloat x = (float)i / (float)slices;
+        vertices.push_back(Vec3<GLfloat>(x * 2.0f - 1.0f, -(float)this->height/2, 0));
+        vertices.push_back(Vec3<GLfloat>(x * 2.0f - 1.0f, (float)this->height/2, 0));
+    }
+
+    for (int i = 0; i < slices; ++i) {
+        GLfloat y = (float)i / (float)slices;
+        vertices.push_back(Vec3<GLfloat>(-(float)this->width/2, y * 2.0f - 1.0f, 0));
+        vertices.push_back(Vec3<GLfloat>((float)this->width/2, y * 2.0f - 1.0f, 0));
     }
 
     std::vector<GLuint> ind;
-
-    for (int j = 0; j < slices; ++j) {
-        for (int i = 0; i < slices; ++i) {
-            GLuint row1 = j * (slices + 1);
-            GLuint row2 = (j + 1) * (slices + 1);
-
-            ind.push_back(row1 + i);
-            ind.push_back(row1 + i + 1);
-            ind.push_back(row2 + i);
-            ind.push_back(row1 + i);
-            ind.push_back(row2 + i + 1);
-            ind.push_back(row2 + i);
-        }
+    for (int i = 0; i < vertices.size(); ++i) {
+        ind.push_back(i);
     }
 
     VertexArray VAO;
@@ -49,7 +41,7 @@ void Dungeoneering::Grid::render() {
     VAO.linkVBO(VBO, 0);
 
 
-    glDrawElements(GL_LINES, ind.size() * 3, GL_UNSIGNED_INT, NULL);
+    glDrawElements(GL_LINES, ind.size() * 3, GL_UNSIGNED_INT, nullptr);
 
     VBO.unbind();
     EBO.unbind();

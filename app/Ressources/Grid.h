@@ -9,7 +9,11 @@
 namespace Dungeoneering {
     class Grid : public Renderable{
     public:
+        Grid(int w, int h): width(w), height(h){}
         void render() override;
+    private:
+        int width;
+        int height;
     };
 }
 
