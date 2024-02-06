@@ -1,8 +1,4 @@
-//
-//
-
 #include <vector>
-#include <iostream>
 #include "glad/glad.h"
 #include "Grid.h"
 #include "../Buffer/VertexArray.h"
@@ -41,7 +37,7 @@ void Dungeoneering::Grid::render() {
     VAO.linkVBO(VBO, 0);
 
 
-    glDrawElements(GL_LINES, ind.size() * 3, GL_UNSIGNED_INT, nullptr);
+    glDrawElements(GL_LINES, (int)vertices.size() * 3, GL_UNSIGNED_INT, nullptr);
 
     VBO.unbind();
     EBO.unbind();
