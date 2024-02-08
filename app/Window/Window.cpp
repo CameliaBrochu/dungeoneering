@@ -5,6 +5,8 @@
 #include "../Shader/Program.h"
 
 #include "../Ressources/Grid.h"
+#include "../Ressources/Shape/Shape.h"
+#include "../Ressources/Shape/Line.h"
 
 Dungeoneering::Window::Window() {
     glfwInit();
@@ -36,11 +38,18 @@ void Dungeoneering::Window::Update() {
     Grid grid(width, height);
     glUseProgram(program.getProgram());
 
+    Shape testShape;
+    testShape.addSegment(new Line(Coords2D(10,10), Coords2D(10,100)));
+    testShape.addSegment(new Line(Coords2D(10,100), Coords2D(100,100)));
+    testShape.addSegment(new Line(Coords2D(100,100), Coords2D(200,200)));
+
     // Loop until window closed
     while(!glfwWindowShouldClose(window)){
         this->setBackgroundColor(Color(1.0f, 0.88f, 0.73f));
 
-        grid.render();
+        //grid.render();
+        testShape.render();
+
 
         glfwSwapBuffers(window);
         glfwPollEvents();

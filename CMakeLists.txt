@@ -17,7 +17,12 @@ add_executable(dungeoneering
         app/Ressources/Grid.h
         app/Ressources/Renderable.h
         app/Buffer/ElementBuffer.h
-        app/Utils/Structs.cpp)
+        app/Utils/Structs.cpp
+        app/Ressources/Shape/Segment.h
+        app/Ressources/Shape/Line.cpp
+        app/Ressources/Shape/Line.h
+        app/Ressources/Shape/Shape.cpp
+        app/Ressources/Shape/Shape.h)
 
 add_subdirectory(glfw)
 target_link_libraries(dungeoneering opengl32)

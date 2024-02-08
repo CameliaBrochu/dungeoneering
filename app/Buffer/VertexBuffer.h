@@ -26,9 +26,9 @@ namespace Dungeoneering{
 
             int count = 0;
             for (const Vec3<GLfloat>& vert: vertsVector) {
-                verts[count] = vert.x;
-                verts[count+1] = vert.y;
-                verts[count+2] = vert.z;
+                verts[count] = vert.first;
+                verts[count+1] = vert.second;
+                verts[count+2] = vert.last;
 
                 count = count+3;
             }
