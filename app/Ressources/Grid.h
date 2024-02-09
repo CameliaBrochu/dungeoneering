@@ -1,6 +1,3 @@
-//
-//
-
 #ifndef DUNGEONEERING_GRID_H
 #define DUNGEONEERING_GRID_H
 

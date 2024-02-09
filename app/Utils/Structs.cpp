@@ -1,5 +1,3 @@
-//
-//
 #ifndef UTILS_STRUCTS_H
 #define UTILS_STRUCTS_H
 namespace Dungeoneering {

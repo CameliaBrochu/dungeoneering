@@ -1,6 +1,3 @@
-//
-//
-
 #ifndef DUNGEONEERING_SHAPE_H
 #define DUNGEONEERING_SHAPE_H
 

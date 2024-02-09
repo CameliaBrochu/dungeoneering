@@ -1,6 +1,3 @@
-//
-//
-
 #ifndef DUNGEONEERING_SEGMENT_H
 #define DUNGEONEERING_SEGMENT_H
 namespace Dungeoneering {
